@@ -351,6 +351,58 @@ function createTitle(text, color) {
   return heading;
 }
 
+function normalizeImageUrl(url) {
+  if (typeof url !== "string") return "";
+  return encodeURI(url.trim());
+}
+
+function uniqueStrings(list) {
+  return [...new Set(list.filter(Boolean))];
+}
+
+function buildImageCandidates(src) {
+  if (typeof src !== "string" || !src.trim()) return [];
+  const raw = src.trim();
+  if (/^https?:\/\//iu.test(raw) || raw.startsWith("data:")) {
+    return [normalizeImageUrl(raw)];
+  }
+
+  const [pathOnly] = raw.split(/[?#]/u);
+  const dotIndex = pathOnly.lastIndexOf(".");
+  const hasExt = dotIndex > pathOnly.lastIndexOf("/");
+  const basePath = hasExt ? pathOnly.slice(0, dotIndex) : pathOnly;
+  const ext = hasExt ? pathOnly.slice(dotIndex + 1).toLowerCase() : "";
+  const variants = ["webp", "jpg", "jpeg", "png", "avif"];
+  const ordered = uniqueStrings([ext, ...variants]).filter(Boolean);
+
+  if (!hasExt) {
+    return ordered.map((candidateExt) => normalizeImageUrl(`${basePath}.${candidateExt}`));
+  }
+
+  return [
+    normalizeImageUrl(raw),
+    ...ordered
+      .filter((candidateExt) => candidateExt !== ext)
+      .map((candidateExt) => normalizeImageUrl(`${basePath}.${candidateExt}`)),
+  ];
+}
+
+function setImageWithFallback(imageEl, src) {
+  const candidates = buildImageCandidates(src);
+  if (!candidates.length) return;
+
+  let index = 0;
+  imageEl.src = candidates[index];
+  imageEl.onerror = () => {
+    index += 1;
+    if (index >= candidates.length) {
+      imageEl.onerror = null;
+      return;
+    }
+    imageEl.src = candidates[index];
+  };
+}
+
 function createGallery(items) {
   const gallery = document.createElement("div");
   gallery.className = "gallery";
@@ -362,7 +414,7 @@ function createGallery(items) {
 
     const image = document.createElement("img");
     image.className = "gallery-image";
-    image.src = entry.src;
+    setImageWithFallback(image, entry.src);
     image.alt = entry.title;
     image.loading = "lazy";
     image.decoding = "async";
@@ -398,7 +450,7 @@ function createFlowCard(entry, contextItems) {
 
   const image = document.createElement("img");
   image.className = "flow-image";
-  image.src = entry.src;
+  setImageWithFallback(image, entry.src);
   image.alt = entry.title;
   image.loading = "lazy";
   image.decoding = "async";
@@ -501,7 +553,7 @@ function renderHareketli() {
     trigger.className = "gallery-card";
 
     const image = document.createElement("img");
-    image.src = entry.src;
+    setImageWithFallback(image, entry.src);
     image.alt = entry.title;
     image.loading = "lazy";
     image.decoding = "async";
@@ -664,7 +716,7 @@ function updateLightboxContent() {
   if (!entry) return;
 
   lightboxTitle.textContent = entry.title || "Çalışma";
-  lightboxImage.src = entry.src;
+  setImageWithFallback(lightboxImage, entry.src);
   lightboxImage.alt = entry.title || "Çalışma";
 
   const category = categoryMeta[entry.category];
