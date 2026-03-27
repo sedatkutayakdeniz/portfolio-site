@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yönetim Paneli | Sedat Kutay Akdeniz</title>
+    <link rel="stylesheet" href="admin.css" />
+    <script src="admin.js" defer></script>
+  </head>
+  <body>
+    <main class="admin-shell">
+      <header class="admin-header">
+        <h1>Yönetim Paneli</h1>
+        <p>Görsel yükle, metin gir ve tek tıkla yayına al.</p>
+      </header>
+
+      <section id="authCard" class="card">
+        <h2>Panel Girişi</h2>
+        <p id="authHint" class="hint">Kullanıcı adı ve şifre ile giriş yap.</p>
+        <form id="authForm" class="form-grid">
+          <label>
+            Kullanıcı Adı
+            <input id="authUsername" type="text" autocomplete="username" required />
+          </label>
+          <label>
+            Şifre
+            <input id="authPassword" type="password" autocomplete="current-password" required />
+          </label>
+          <label id="authConfirmWrap" class="hidden">
+            Şifre (Tekrar)
+            <input id="authPasswordConfirm" type="password" autocomplete="new-password" />
+          </label>
+          <div class="actions">
+            <button id="authSubmitBtn" type="submit">Giriş Yap</button>
+          </div>
+        </form>
+        <p id="authStatus" class="status"></p>
+      </section>
+
+      <div id="adminPanel" class="hidden">
+        <section class="card">
+          <div class="panel-head">
+            <h2>1) Bağlantı Ayarı (Bir Kez)</h2>
+            <button id="logoutBtn" type="button" class="ghost">Çıkış Yap</button>
+          </div>
+          <p class="hint">
+            Bu bilgiler panelin GitHub repouna yazabilmesi için gerekli. İlk kurulumdan sonra tarayıcıda saklanır.
+          </p>
+          <form id="settingsForm" class="form-grid">
+            <label>
+              GitHub Token
+              <input id="ghToken" type="password" autocomplete="off" required />
+            </label>
+            <label>
+              GitHub Kullanıcı/Organizasyon
+              <input id="ghOwner" type="text" placeholder="kullanici-adi" required />
+            </label>
+            <label>
+              Repo Adı
+              <input id="ghRepo" type="text" placeholder="kutay-website" required />
+            </label>
+            <label>
+              Branch
+              <input id="ghBranch" type="text" value="main" required />
+            </label>
+            <div class="actions">
+              <button type="submit">Ayarları Kaydet</button>
+              <button id="testConnectionBtn" type="button" class="ghost">Bağlantıyı Test Et</button>
+            </div>
+          </form>
+          <p id="settingsStatus" class="status"></p>
+        </section>
+
+        <section class="card">
+          <h2 id="contentFormTitle">2) Yeni İçerik Ekle</h2>
+          <p id="contentFormHint" class="hint">Yeni bir çalışma eklemek için formu doldur.</p>
+          <form id="contentForm" class="form-grid">
+            <label>
+              Görsel Dosyası
+              <input id="contentFile" type="file" accept="image/*" required />
+            </label>
+            <label>
+              Başlık
+              <input id="contentTitle" type="text" placeholder="Örn: Yeni Afiş Çalışması" required />
+            </label>
+            <label>
+              Kategori
+              <select id="contentCategory" required>
+                <option value="illustrasyon">İllüstrasyon</option>
+                <option value="oyun-tasarimi">Oyun Tasarımı</option>
+                <option value="logo-tasarimi">Logo Tasarımı</option>
+                <option value="poster">Poster</option>
+                <option value="baski-sanatlari">Baskı Sanatları</option>
+                <option value="fotograflarim">Fotoğraflarım</option>
+                <option value="ui-ux">UI-UX</option>
+              </select>
+            </label>
+            <label>
+              Açıklama
+              <textarea id="contentDescription" rows="4" placeholder="Görsel hakkında kısa açıklama" required></textarea>
+            </label>
+            <label>
+              İsteğe Bağlı Link (Route)
+              <input id="contentRoute" type="text" placeholder="#/projeler/poster" />
+            </label>
+            <div class="actions">
+              <button id="publishBtn" type="submit">Yayınla</button>
+              <button id="cancelEditBtn" type="button" class="ghost hidden">Düzenlemeyi İptal Et</button>
+            </div>
+          </form>
+          <p id="contentStatus" class="status"></p>
+        </section>
+
+        <section class="card">
+          <h2>Mevcut Eklenen İçerikler</h2>
+          <p class="hint">Buradan içerikleri düzenleyebilir veya silebilirsin.</p>
+          <div id="itemsContainer" class="items"></div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

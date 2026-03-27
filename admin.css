@@ -1,0 +1,184 @@
+:root {
+  --bg: #f2f3f5;
+  --card: #ffffff;
+  --text: #1f2a36;
+  --muted: #5f6f82;
+  --line: #dde3ea;
+  --primary: #1f5ed6;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at 20% 0%, #ffffff 0%, var(--bg) 52%);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.admin-shell {
+  width: min(980px, 100%);
+  margin: 0 auto;
+  padding: 26px 16px 40px;
+  display: grid;
+  gap: 14px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.admin-header h1 {
+  margin: 0 0 4px;
+  font-size: clamp(26px, 4vw, 38px);
+}
+
+.admin-header p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.card h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.hint {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.form-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.form-grid label {
+  display: grid;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.form-grid input,
+.form-grid textarea,
+.form-grid select {
+  border: 1px solid #b9c5d4;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+  padding: 10px 12px;
+}
+
+.form-grid textarea {
+  resize: vertical;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+button {
+  border: 0;
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.ghost {
+  background: #eff3fb;
+  color: #2b3950;
+  border: 1px solid #c8d4ea;
+}
+
+.status {
+  min-height: 22px;
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: #274ea0;
+}
+
+.status.error {
+  color: #b42318;
+}
+
+.items {
+  display: grid;
+  gap: 8px;
+}
+
+.item-row {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.item-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.item-meta {
+  min-width: 0;
+}
+
+.item-title {
+  margin: 0 0 4px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.item-desc {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.item-pill {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 11px;
+  color: #304053;
+  background: #eef2f8;
+  border-radius: 999px;
+  padding: 3px 8px;
+}
+
+.empty {
+  color: var(--muted);
+  font-size: 14px;
+}

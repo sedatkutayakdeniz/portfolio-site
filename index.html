@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sedat Kutay Akdeniz | Portfolyo</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <img
+            class="sidebar-logo"
+            src="assets/sidebar-logo.png"
+            alt="Sedat Kutay Akdeniz logosu"
+            width="152"
+            height="163"
+          />
+        </div>
+
+        <nav class="menu" aria-label="Ana Menü">
+          <a href="#/calismalarim" data-route="calismalarim">Çalışmalarım</a>
+          <a href="#/projeler" data-route="projeler">Projeler</a>
+          <a href="#/hareketli-goruntuler" data-route="hareketli-goruntuler">Hareketli Görüntüler</a>
+          <a href="#/hakkimda" data-route="hakkimda">Hakkımda</a>
+          <a href="#/iletisim" data-route="iletisim">İletişim</a>
+        </nav>
+      </aside>
+
+      <main id="content" class="content" aria-live="polite"></main>
+    </div>
+
+    <div id="lightbox" class="lightbox" aria-hidden="true">
+      <button id="lightboxClose" class="lightbox-close" type="button" aria-label="Kapat">✕</button>
+      <div class="lightbox-inner">
+        <div class="lightbox-meta">
+          <p id="lightboxTitle" class="lightbox-title"></p>
+          <p id="lightboxCategory" class="lightbox-category"></p>
+          <p id="lightboxDescription" class="lightbox-description"></p>
+          <div class="lightbox-actions">
+            <button id="lightboxPrev" class="lightbox-nav" type="button">Önceki</button>
+            <button id="lightboxNext" class="lightbox-nav" type="button">Sonraki</button>
+          </div>
+          <a id="lightboxCategoryLink" class="lightbox-link" href="#/projeler">Kategoriye Git</a>
+        </div>
+        <img id="lightboxImage" class="lightbox-image" alt="" />
+      </div>
+    </div>
+  </body>
+</html>
